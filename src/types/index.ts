@@ -1,6 +1,7 @@
 import type { FilePath, FilePathMap } from '@codemod-utils/files';
 
 type CodemodOptions = {
+  pod: string;
   podPath: string;
   projectRoot: string;
   projectType: 'app' | 'v1-addon';
@@ -10,6 +11,7 @@ type CodemodOptions = {
 type FilePathMapEntries = [FilePath, FilePath][];
 
 type Options = {
+  pod: string;
   podPath: string;
   projectRoot: string;
   projectType: 'app' | 'v1-addon';
