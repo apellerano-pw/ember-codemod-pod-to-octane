@@ -9,17 +9,20 @@ import type {
 import { renamePodPath } from '../../../../../utils/files/index.js';
 
 export function mapRouteControllers(options: Options): FilePathMapEntries {
-  const { podPath, projectRoot } = options;
+  const { pod, podPath, projectRoot } = options;
 
   /*
     Case 1: Didn't pass the --pod flag, but configured { usePods: true } in .ember-cli
   */
   const podDir1 = join('tests/unit', podPath);
 
-  const filePaths1 = findFiles(`${podDir1}/**/controller-test.{js,ts}`, {
-    ignoreList: [join('tests/unit', podPath, 'controllers/**')],
-    projectRoot,
-  });
+  const filePaths1 = findFiles(
+    join(podDir1, pod, '**/controller-test.{js,ts}'),
+    {
+      ignoreList: [join('tests/unit', podPath, 'controllers', pod, '**')],
+      projectRoot,
+    },
+  );
 
   const filePathMap1 = filePaths1.map((oldFilePath) => {
     const newFilePath = renamePodPath(oldFilePath, {
@@ -37,9 +40,12 @@ export function mapRouteControllers(options: Options): FilePathMapEntries {
   */
   const podDir2 = join('tests/unit', podPath, 'controllers');
 
-  const filePaths2 = findFiles(`${podDir2}/**/controller-test.{js,ts}`, {
-    projectRoot,
-  });
+  const filePaths2 = findFiles(
+    join(podDir2, pod, '**/controller-test.{js,ts}'),
+    {
+      projectRoot,
+    },
+  );
 
   const filePathMap2 = filePaths2.map((oldFilePath) => {
     const newFilePath = renamePodPath(oldFilePath, {

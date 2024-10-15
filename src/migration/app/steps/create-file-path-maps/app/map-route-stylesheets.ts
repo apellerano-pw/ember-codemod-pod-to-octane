@@ -9,12 +9,12 @@ import type {
 import { renamePodPath } from '../../../../../utils/files/index.js';
 
 export function mapRouteStylesheets(options: Options): FilePathMapEntries {
-  const { podPath, projectRoot } = options;
+  const { pod, podPath, projectRoot } = options;
 
   const podDir = join('app', podPath);
 
-  const filePaths = findFiles(`${podDir}/**/styles.{css,scss}`, {
-    ignoreList: [join('app', podPath, 'components/**')],
+  const filePaths = findFiles(join(podDir, pod, '**/styles.{css,scss}'), {
+    ignoreList: [join('app', podPath, 'components', pod, '**')],
     projectRoot,
   });
 

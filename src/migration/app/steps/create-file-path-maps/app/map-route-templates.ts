@@ -9,12 +9,12 @@ import type {
 import { renamePodPath } from '../../../../../utils/files/index.js';
 
 export function mapRouteTemplates(options: Options): FilePathMapEntries {
-  const { podPath, projectRoot } = options;
+  const { pod, podPath, projectRoot } = options;
 
   const podDir = join('app', podPath);
 
-  const filePaths = findFiles(`${podDir}/**/template.hbs`, {
-    ignoreList: [join('app', podPath, 'components/**')],
+  const filePaths = findFiles(join(podDir, pod, '**/template.hbs'), {
+    ignoreList: [join('app', podPath, 'components', pod, '**')],
     projectRoot,
   });
 

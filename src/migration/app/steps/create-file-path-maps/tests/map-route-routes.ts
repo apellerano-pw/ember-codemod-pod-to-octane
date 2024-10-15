@@ -9,15 +9,15 @@ import type {
 import { renamePodPath } from '../../../../../utils/files/index.js';
 
 export function mapRouteRoutes(options: Options): FilePathMapEntries {
-  const { podPath, projectRoot } = options;
+  const { pod, podPath, projectRoot } = options;
 
   /*
     Case 1: Didn't pass the --pod flag, but configured { usePods: true } in .ember-cli
   */
   const podDir1 = join('tests/unit', podPath);
 
-  const filePaths1 = findFiles(`${podDir1}/**/route-test.{js,ts}`, {
-    ignoreList: [join('tests/unit', podPath, 'routes/**')],
+  const filePaths1 = findFiles(join(podDir1, pod, '**/route-test.{js,ts}'), {
+    ignoreList: [join('tests/unit', podPath, 'routes', pod, '**')],
     projectRoot,
   });
 
@@ -37,7 +37,7 @@ export function mapRouteRoutes(options: Options): FilePathMapEntries {
   */
   const podDir2 = join('tests/unit', podPath, 'routes');
 
-  const filePaths2 = findFiles(`${podDir2}/**/route-test.{js,ts}`, {
+  const filePaths2 = findFiles(join(podDir2, pod, '**/route-test.{js,ts}'), {
     projectRoot,
   });
 
