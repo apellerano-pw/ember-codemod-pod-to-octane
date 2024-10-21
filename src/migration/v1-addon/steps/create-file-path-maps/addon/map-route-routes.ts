@@ -1,3 +1,5 @@
+import { join } from 'node:path';
+
 import { findFiles } from '@codemod-utils/files';
 
 import type {
@@ -7,11 +9,11 @@ import type {
 import { renamePodPath } from '../../../../../utils/files/index.js';
 
 export function mapRouteRoutes(options: Options): FilePathMapEntries {
-  const { projectRoot } = options;
+  const { pod, projectRoot } = options;
 
   const podDir = 'addon';
 
-  const filePaths = findFiles(`${podDir}/**/route.{js,ts}`, {
+  const filePaths = findFiles(join(podDir, pod, '**/route.{js,ts}'), {
     projectRoot,
   });
 
